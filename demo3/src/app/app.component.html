@@ -1,0 +1,28 @@
+<body>
+  <button class="search-button" *ngIf="!formVisibility" type="button" (click)="searchArtist()">Search Artist</button>
+  <form class="card" *ngIf="formVisibility && !tabVisibility" [formGroup]="artistForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label>Name : </label><br>
+        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">Name is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Limit : </label><br>
+        <input type="number" formControlName="track" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.track.errors }">
+        <div *ngIf="submitted && f.track.errors" class="invalid-feedback">
+            <div *ngIf="f.track.errors.required">Limit is required</div>
+        </div>
+    </div>
+    <button class="btn btn-primary mr-1">Search</button>
+  </form>
+  <div class="tab" *ngIf="tabVisibility">
+    <button class="tablinks" *ngFor="let item of data;" (click)="showArtistInfo(item)">{{item.artistName}}</button>
+  </div>
+  <div class="artistInfo" *ngIf="tabVisibility">
+    <label>Artist Name:   </label>{{artistName}}<br>
+    <label>Track Name:    </label>{{trackName}}<br>
+    <label>artWorkUrl30:  </label>{{artWorkUrl}}
+  </div>
+</body>
